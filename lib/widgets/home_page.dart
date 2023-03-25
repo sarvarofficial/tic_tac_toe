@@ -9,23 +9,35 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool oTurn = true;
-  List<String> displayElement = ["", "", "", "", "", "", "", "", "",];
+  List<String> displayElement = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ];
 
   int xScore = 0;
 
   int oScore = 0;
   int filledBoxes = 0;
- var xStyle=TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.red);
- var oStyle=TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.indigo);
+  var xStyle =
+      TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red);
+  var oStyle = TextStyle(
+      fontSize: 24, fontWeight: FontWeight.bold, color: Colors.indigo);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Tic Tac Toe"),),
+      appBar: AppBar(
+        title: Text("Tic Tac Toe"),
+      ),
       body: Container(
-        decoration: BoxDecoration(
-          color: Colors.green
-        ),
+        decoration: BoxDecoration(color: Colors.green),
         child: Column(
           children: [
             Expanded(
@@ -35,10 +47,22 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
-                      children: [Text("X player:",style: xStyle,), Text(xScore.toString(),style: xStyle)],
+                      children: [
+                        Text(
+                          "X player:",
+                          style: xStyle,
+                        ),
+                        Text(xScore.toString(), style: xStyle)
+                      ],
                     ),
                     Column(
-                      children: [Text("O player:",style:oStyle), Text(oScore.toString(),style: TextStyle(fontSize: 20,color: Colors.indigo),)],
+                      children: [
+                        Text("O player:", style: oStyle),
+                        Text(
+                          oScore.toString(),
+                          style: TextStyle(fontSize: 20, color: Colors.indigo),
+                        )
+                      ],
                     ),
                   ],
                 ),
@@ -48,8 +72,8 @@ class _HomePageState extends State<HomePage> {
               flex: 2,
               child: GridView.builder(
                 itemCount: 9,
-                gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
@@ -59,7 +83,11 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                           color: Colors.amber,
                           border: Border.all(color: Colors.white)),
-                      child: Center(child: Text(displayElement[index],style: displayElement[index] == "X"?xStyle:oStyle,)),
+                      child: Center(
+                          child: Text(
+                        displayElement[index],
+                        style: displayElement[index] == "X" ? xStyle : oStyle,
+                      )),
                     ),
                   );
                 },
@@ -73,7 +101,6 @@ class _HomePageState extends State<HomePage> {
                 "Clear score board",
                 style: TextStyle(fontSize: 20),
               ),
-
             ),
             SizedBox(
               height: 20,
@@ -99,7 +126,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void checkWinner() {
-
     //row
     if (displayElement[0] == displayElement[1] &&
         displayElement[0] == displayElement[2] &&
@@ -110,7 +136,8 @@ class _HomePageState extends State<HomePage> {
         displayElement[3] == displayElement[5] &&
         displayElement[3] != "") {
       _showWinDialog(displayElement[3]);
-    }if (displayElement[6] == displayElement[7] &&
+    }
+    if (displayElement[6] == displayElement[7] &&
         displayElement[6] == displayElement[8] &&
         displayElement[6] != "") {
       _showWinDialog(displayElement[6]);
@@ -120,11 +147,13 @@ class _HomePageState extends State<HomePage> {
         displayElement[0] == displayElement[6] &&
         displayElement[0] != "") {
       _showWinDialog(displayElement[0]);
-    }if (displayElement[1] == displayElement[4] &&
+    }
+    if (displayElement[1] == displayElement[4] &&
         displayElement[1] == displayElement[7] &&
         displayElement[1] != "") {
       _showWinDialog(displayElement[1]);
-    }if (displayElement[2] == displayElement[5] &&
+    }
+    if (displayElement[2] == displayElement[5] &&
         displayElement[2] == displayElement[8] &&
         displayElement[2] != "") {
       _showWinDialog(displayElement[0]);
@@ -139,71 +168,71 @@ class _HomePageState extends State<HomePage> {
         displayElement[2] == displayElement[6] &&
         displayElement[2] != "") {
       _showWinDialog(displayElement[2]);
-    }else if(filledBoxes==9){
+    } else if (filledBoxes == 9) {
       _showDrawDialog();
     }
-
   }
 
   void _showWinDialog(String winner) {
     showDialog(
-      barrierDismissible: false,
+        barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-
             title: Text("Winner " + winner),
             actions: [
-              TextButton(onPressed: (){
-                clearBoard();
-                Navigator.of(context).pop();
-              }, child: Text("Play again"))
+              TextButton(
+                  onPressed: () {
+                    clearBoard();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Play again"))
             ],
-
           );
         });
-    if(winner=="X"){
+    if (winner == "X") {
       xScore++;
-    }else if(winner=="O"){
+    } else if (winner == "O") {
       oScore++;
     }
   }
-  void _showDrawDialog(){
+
+  void _showDrawDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("Draw "),
             actions: [
-              TextButton(onPressed: (){
-                clearBoard();
-                Navigator.of(context).pop();
-              }, child: Text("Play again"))
+              TextButton(
+                  onPressed: () {
+                    clearBoard();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Play again"))
             ],
           );
         });
   }
 
-  void clearBoard(){
+  void clearBoard() {
     setState(() {
-    for(int i=0; i < 9;i++){
-     displayElement[i]="";
-
-    }
-    });
-    filledBoxes=0;
-
-  }
-
-  void clearScoreBoard(){
-    setState(() {
-      xScore=0;
-      oScore=0;
-
-      for(int i=0; i<9;i++){
-        displayElement[i]="";
+      for (int i = 0; i < 9; i++) {
+        displayElement[i] = "";
       }
     });
-    filledBoxes=0;
+    filledBoxes = 0;
+  }
+
+  void clearScoreBoard() {
+    setState(() {
+      xScore = 0;
+      oScore = 0;
+
+      for (int i = 0; i < 9; i++) {
+        displayElement[i] = "";
+      }
+    });
+    filledBoxes = 0;
   }
 }
