@@ -25,24 +25,24 @@ class _HomePageState extends State<HomePage> {
 
   int oScore = 0;
   int filledBoxes = 0;
-  var xStyle =
-      TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red);
-  var oStyle = TextStyle(
+  var xStyle = const TextStyle(
+      fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red);
+  var oStyle = const TextStyle(
       fontSize: 24, fontWeight: FontWeight.bold, color: Colors.indigo);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tic Tac Toe"),
+        title: const Text("Tic Tac Toe"),
       ),
       body: Container(
-        decoration: BoxDecoration(color: Colors.green),
+        decoration: const BoxDecoration(color: Colors.green),
         child: Column(
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 32),
+                padding: const EdgeInsets.only(top: 32),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                         Text("O player:", style: oStyle),
                         Text(
                           oScore.toString(),
-                          style: TextStyle(fontSize: 20, color: Colors.indigo),
+                          style: oStyle,
                         )
                       ],
                     ),
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               flex: 2,
               child: GridView.builder(
                 itemCount: 9,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
@@ -95,14 +95,14 @@ class _HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                clearScoreBoard();
+                _clearScoreBoard();
               },
-              child: Text(
+              child: const Text(
                 "Clear score board",
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],
@@ -121,11 +121,11 @@ class _HomePageState extends State<HomePage> {
         filledBoxes++;
       }
       oTurn = !oTurn;
-      checkWinner();
+      _checkWinner();
     });
   }
 
-  void checkWinner() {
+  void _checkWinner() {
     //row
     if (displayElement[0] == displayElement[1] &&
         displayElement[0] == displayElement[2] &&
@@ -179,14 +179,14 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Winner " + winner),
+            title: Text("Winner player " + winner),
             actions: [
               TextButton(
                   onPressed: () {
-                    clearBoard();
+                    _clearBoard();
                     Navigator.of(context).pop();
                   },
-                  child: Text("Play again"))
+                  child: const Text("Play again"))
             ],
           );
         });
@@ -202,20 +202,20 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Draw "),
+            title: const Text("Draw "),
             actions: [
               TextButton(
                   onPressed: () {
-                    clearBoard();
+                    _clearBoard();
                     Navigator.of(context).pop();
                   },
-                  child: Text("Play again"))
+                  child: const Text("Play again"))
             ],
           );
         });
   }
 
-  void clearBoard() {
+  void _clearBoard() {
     setState(() {
       for (int i = 0; i < 9; i++) {
         displayElement[i] = "";
@@ -224,7 +224,7 @@ class _HomePageState extends State<HomePage> {
     filledBoxes = 0;
   }
 
-  void clearScoreBoard() {
+  void _clearScoreBoard() {
     setState(() {
       xScore = 0;
       oScore = 0;
